@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nomacode Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-200 p-6">
+<h1 class="text-2xl font-bold mb-4">Nomacode Dashboard</h1>
+<div id="repos"></div>
+<div id="sessions" class="mt-6"></div>
+<script src="js/api.js"></script>
+<script>
+(async()=>{
+const repos = await API.repos.list();
+const sessions = await API.sessions.list();
+document.getElementById('repos').innerHTML = '<h2 class=\"font-bold\">Repos</h2>' + repos.map(r=>`<div>${r.name}</div>`).join('');
+document.getElementById('sessions').innerHTML = '<h2 class=\"font-bold\">Sessions</h2>' + sessions.map(s=>`<div>${s.tool} - ${s.pid}</div>`).join('');
+})();
+</script>
+</body>
+</html>
